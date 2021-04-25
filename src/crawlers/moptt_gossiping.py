@@ -13,7 +13,7 @@ class Gossiping:
         self.base_url = "https://moptt.azurewebsites.net/api/v2/hotpost"
         self.session = requests.Session()
 
-    def get_gossiping_hot_posts(self):
+    def get_hot_posts(self, topic_name: str) -> requests.Response.json:
         """
         Returns:
             resp (json):
@@ -42,9 +42,6 @@ class Gossiping:
                     }
                 }
         """
-        return self.__get_hot_post("Gossiping")
-
-    def __get_hot_post(self, topic_name: str) -> requests.Response.json:
         url = f"{self.base_url}?b={topic_name}"
         resp = self.session.get(url, headers=self.headers)
         if resp.status_code == HTTPStatus.OK:

@@ -23,7 +23,7 @@ class MockResponse:
 @pytest.mark.int_test
 def test_real_connect_to_moptt():
     g = Gossiping()
-    resp = g.get_gossiping_hot_posts()
+    resp = g.get_hot_posts("Gossiping")
     logging.info(json.dumps(resp, indent=2))
     assert "posts" in resp
     assert isinstance(resp["posts"], list)
@@ -33,7 +33,7 @@ def test_real_connect_to_moptt():
 @patch.object(Session, 'get', return_value=MockResponse({"posts": []}, HTTPStatus.OK))
 def test_get_hot_posts(response):
     g = Gossiping()
-    resp = g.get_gossiping_hot_posts()
+    resp = g.get_hot_posts("Gossiping")
     logging.debug(resp)
     logging.debug(response)
     assert "posts" in resp
@@ -44,5 +44,5 @@ def test_get_hot_posts(response):
 def test_get_hot_posts_failed(response):
     g = Gossiping()
     with pytest.raises(requests.RequestException):
-        resp = g.get_gossiping_hot_posts()
+        resp = g.get_hot_posts("Gossiping")
         assert resp == {}
