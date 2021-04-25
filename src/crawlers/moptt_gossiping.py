@@ -42,7 +42,10 @@ class Gossiping:
                     }
                 }
         """
-        url = f"{self.base_url}?b=Gossiping"
+        return self.__get_hot_post("Gossiping")
+
+    def __get_hot_post(self, topic_name: str) -> requests.Response.json:
+        url = f"{self.base_url}?b={topic_name}"
         resp = self.session.get(url, headers=self.headers)
         if resp.status_code == HTTPStatus.OK:
             return resp.json()
