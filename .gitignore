@@ -140,3 +140,8 @@ cython_debug/
 .venv
 .DS_Store
 .vscode
+
+# reports
+ut-reports
+cov-reports
+output.json

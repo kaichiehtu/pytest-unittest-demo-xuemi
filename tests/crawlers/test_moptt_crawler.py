@@ -7,7 +7,7 @@ import pytest
 from requests import Session
 import requests
 
-from src.crawlers.moptt_gossiping import Gossiping
+from src.crawlers.moptt_crawler import MoPtt
 
 
 class MockResponse:
@@ -22,7 +22,7 @@ class MockResponse:
 
 @pytest.mark.int_test
 def test_real_connect_to_moptt():
-    g = Gossiping()
+    g = MoPtt()
     resp = g.get_hot_posts("Gossiping")
     logging.info(json.dumps(resp, indent=2))
     assert "posts" in resp
@@ -32,7 +32,7 @@ def test_real_connect_to_moptt():
 
 @patch.object(Session, 'get', return_value=MockResponse({"posts": []}, HTTPStatus.OK))
 def test_get_hot_posts(response):
-    g = Gossiping()
+    g = MoPtt()
     resp = g.get_hot_posts("Gossiping")
     logging.debug(resp)
     logging.debug(response)
@@ -42,7 +42,7 @@ def test_get_hot_posts(response):
 
 @patch.object(Session, 'get', return_value=MockResponse({}, HTTPStatus.FORBIDDEN))
 def test_get_hot_posts_failed(response):
-    g = Gossiping()
+    g = MoPtt()
     with pytest.raises(requests.RequestException):
         resp = g.get_hot_posts("Gossiping")
         assert resp == {}

@@ -2,7 +2,7 @@ from http import HTTPStatus
 import requests
 
 
-class Gossiping:
+class MoPtt:
 
     def __init__(self):
         self.headers = {
