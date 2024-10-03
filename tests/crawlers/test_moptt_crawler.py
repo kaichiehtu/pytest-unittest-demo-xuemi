@@ -20,7 +20,7 @@ class MockResponse:
         return self.resp_json
 
 
-@pytest.mark.int_test
+@pytest.mark.int
 def test_real_connect_to_moptt():
     g = MoPtt()
     resp = g.get_hot_posts("Gossiping")
